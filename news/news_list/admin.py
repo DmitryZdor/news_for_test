@@ -15,7 +15,11 @@ class NewsListAdmin(admin.ModelAdmin):
 
     def preview(self,obj):
         if obj.image:
-            return mark_safe(f'<img src="{obj.image.url}" style="max-height: 200px;">')
+            # return obj.image.width
+            if obj.image.width > obj.image.height:
+                return mark_safe(f'<img src="{obj.image.url}" style="max-width: 200px;">')
+            else:
+                return mark_safe(f'<img src="{obj.image.url}" style="max-height: 200px;">')
         else:
             return 'Загрузите изображение'
     preview.short_description = 'Превью'
