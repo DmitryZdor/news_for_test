@@ -18,9 +18,9 @@
                 <h1 class="mb-5">НОВОСТИ</h1>
                 {% for new in news %}
                     <h2 class="mb-5">{{ new.title }}</h2>
-                             <img class="card-img-top"
-                                     src="{{ new.image.url }}"
-                                     alt="">
+                    {% if new.image %}
+                             <img src="{{ new.image.url }}" style="max-height: 400px;">
+                    {% endif %}
                     <div class="decription">
                         {{ new.text|safe }}
                     </div>

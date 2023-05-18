@@ -19,12 +19,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from news_list.views import index
+from news_list.views import index, news_list, news_detail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
     path('', index, name='index'),
+    path('news/', news_list, name='news_list'),
+    path('news/<int:pk>/', news_detail, name='news_detail'),
 
 ]
 
