@@ -1,27 +1,19 @@
-from django.views.generic.base import TemplateView
-from django.views.generic.edit import CreateView
-from django.urls import reverse_lazy
+from django.shortcuts import render
 
-from news_list.forms import NewsForm
+from news_list.models import News
 
 
-class TitleMixin:
-    title = None
-
-    def get_context_data(self, **kwargs):
-        context = super(TitleMixin, self).get_context_data(**kwargs)
-        context['title'] = self.title
-        return context
-
-
-class IndexView(TitleMixin, TemplateView):
-    template_name = 'news_list/index.html'
+def index(request):
+    news = News.objects.all()
+    template = 'news_list/index.html'
     title = 'NEWS'
+    return render(request, template, context={'news': news,
+                                                  'title': title, }
 
+                  )
 
-
-class OrderCreateView(TitleMixin, CreateView):
-    template_name = 'news_list/news_page.html'
-    form_class = NewsForm
-    title = 'Новость'
-    success_url = reverse_lazy('news_list:index')
+# class OrderCreateView(TitleMixin, CreateView):
+#     template_name = 'news_list/news_page.html'
+#     form_class = NewsForm
+#     title = 'Новость'
+#     success_url = reverse_lazy('news_list:index')

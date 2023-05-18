@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
+from tinymce import models as tinymce_models
 
 class News(models.Model):
     title = models.CharField(max_length=30, verbose_name='Заголовок',
                             help_text='Введите название')
-    text = models.TextField(verbose_name='ТЕКСТ НОВОСТИ',
+    text = tinymce_models.HTMLField(verbose_name='ТЕКСТ НОВОСТИ',
                             help_text='Введите текст')
     pub_date = models.DateTimeField(auto_now_add=True,
                                     verbose_name='ДАТА',
@@ -12,7 +13,6 @@ class News(models.Model):
                                     )
 
     image = models.ImageField(upload_to='news_images', null=True, blank=True)
-    preview = models.ImageField(upload_to='news_images', null=True, blank=True)
 
     author = models.ForeignKey(to=User,
                                on_delete=models.CASCADE,
